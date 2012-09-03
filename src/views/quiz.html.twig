@@ -1,0 +1,54 @@
+{% extends "layout.html.twig" %}
+{% block content %}
+
+<div id="stage02">
+    <div id="wrapper">
+        
+        <header class="clearfix">
+            <h3>Quiz Heading</h3>
+          
+        </header>
+
+        <section class="clearfix">
+            
+                
+                <h3>{{question.question_title}}</h3>
+                <form method="post">
+                  {% for answer in question.answers %}
+                    <fieldset>
+                        <input id="answer_{{ answer.id }}" type="radio" class="radio" name="form[answer]" value="{{ answer.id }}" {% if 'answer' in form_values|keys and  form_values.answer == answer.id%} checked {%endif %} />
+                        <label for="answer_{{ answer.id }}">{{ answer.answer }}</label>
+                    </fieldset>
+                    
+                    {% endfor %}
+                    {% if 'answer' in errors|keys %}
+                    <span class="error">{{ errors.answer }}</span><br style="clear:both"/>
+                    {% endif %}
+                    <label for="email">Email</label><input id="email" type="text" class="text" name="form[email_address]" value="{% if 'email_address' in form_values|keys %}{{ form_values.email_address }}{% endif %}" /><br style="clear:both"/>
+                    {% if 'email' in errors|keys %}
+                    <span class="error">{{ errors.email }}</span><br style="clear:both"/>
+                    {% endif %}
+                    <label for="phone">Telephone Number</label><input id="phone" type="text" class="text" name="form[phone_number]"  value="{% if 'phone_number' in form_values|keys %}{{ form_values.phone_number }}{% endif %}"/>
+                    {% if 'phone_number' in errors|keys %}
+                    <span class="error">{{ errors.phone_number }}</span><br style="clear:both"/>
+                    {% endif %}
+                    <br style="clear:both" /><input type="checkbox" name="form[agree_terms]" value="1" id="agree_terms"><label for="agree_terms">I accept the <a class="right" style="float:none;text-decoration:underline" href="{{ ts_and_cs_link }}" target="_blank">Terms & Conditions</a></label>
+                    <br style="clear:both"/>
+                    {% if 'agree_terms' in errors|keys %}
+                    <span class="error">{{ errors.agree_terms }}</span><br style="clear:both"/>
+                    {% endif %}
+                    <input type="submit" class="submit" value="Enter" />
+                    
+                </form>
+               
+            
+                    
+  
+    
+	<!--[if lt IE 7 ]>
+	<script src="js/libs/dd_belatedpng.js"></script>
+	<script> DD_belatedPNG.fix('.png_bg');</script>
+	<![endif]-->
+	
+</div>
+{% endblock %}

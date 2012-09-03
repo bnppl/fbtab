@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="/css/style.css?7" />
+	<link rel="stylesheet" type="text/css" href="/js/jquery.fancybox-1.3.4.css" />
+
+	<!--[if IE]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+	<script>!window.jQuery && document.write(unescape('%3Cscript src="js/libs/jquery-1.5.1.min.js"%3E%3C/script%3E'))</script>
+    <script src="/js/jquery.fancybox-1.3.4.pack.js"></script>
+    <script src="/js/script.js"></script>
+{% if google_analytics_code is defined %}	
+    <script type="text/javascript">
+      
+    
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '{{google_analytics_code}}']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+
+  </script>
+	<script>
+
+    function recordOutboundLink(link, category, action) {
+        try {
+            var pageTracker = _gat._createTracker("{{google_analytics_code}}");
+            pageTracker._trackEvent(category, action);
+            
+        } catch (err) { }
+    }
+
+    function popSharer(url) {
+        newwindow=window.open(url,'name','height=440,width=640');
+        if (window.focus) {newwindow.focus()}
+        return false;
+    }
+    
+    </script>
+    {% endif %}
+    {% block head_js %}{% endblock %}
+
+	{% block og_tags %}{% endblock %}
+	
+</head>
+<body>
+<div id="fb-root"></div>
+<script type="text/javascript">
+    window.fbAsyncInit = function() {
+        FB.init({ appId: '{{ facebook_app_id }}', status: true, cookie: true, xfbml: true });
+        //FB.Canvas.setAutoGrow(); //Resizes the iframe to fit content
+        //FB.Canvas.setAutoGrow(false);
+        //FB.Canvas.scrollTo(0,0);
+        FB.Canvas.setSize({width: 810, height:2210 });
+    };
+
+    (function(){
+        var e = document.createElement('script'); e.async = true;
+        e.src = document.location.protocol +
+        '//connect.facebook.net/en_US/all.js';
+        document.getElementById('fb-root').appendChild(e);
+    }());
+
+</script>
+{% block content %}{% endblock %}
+</body>
+</html>

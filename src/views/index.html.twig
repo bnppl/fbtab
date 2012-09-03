@@ -1,0 +1,16 @@
+{% extends "layout.html.twig" %}
+{% block og_tags %}
+<meta property="og:title" content="" />
+<meta property="og:description" content="" />
+<meta property="og:image" content="{{ facebook_page_content }}i/wall-thumb.png" />
+<meta property="og:type" content="company" />
+<meta property="og:url" content="{{ facebook_page_content }}" />
+{% if redirect_to_facebook %}
+	<script type="text/javascript">
+	var referrer = (document.referrer.indexOf('static.ak.facebook.com') >= 0) ;
+	if(!referrer){
+		document.location.href='{{facebook_page_tab}}';
+	}
+	</script>
+{% endif %}
+{% endblock %}
