@@ -1,6 +1,6 @@
 {
     "name": "traffic/fbtab",
-    "version": "1.0.0-alpha",
+    "version": "1.0.0",
     "minimum-stability": "dev",
     "require": {
         "silex/silex": "1.0.*",
