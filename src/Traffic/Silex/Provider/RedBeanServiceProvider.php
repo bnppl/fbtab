@@ -2,7 +2,7 @@
 /**
 * PHP versions 5
 *
-* @license http://www.opensource.org/licenses/mit-license.php The MIT License (MIT)
+* 
 */
 namespace Traffic\Silex\Provider;
 
