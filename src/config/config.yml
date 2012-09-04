@@ -1,6 +1,13 @@
 
 facebook:
-  app_id: 12345
+  app_id: 0
+  page_tab : ''
+  page_content : ''
+  share_link : ''
+  share_title : ''
+  share_title : ''
+  redirect_to_tab : true
   
-test:
-  blah: yeah
+view_config_vars:
+    google_analytics_code : UA-713676-5
+

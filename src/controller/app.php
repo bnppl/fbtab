@@ -9,27 +9,24 @@ include __DIR__.'/../bootstrap.php';
  */
 $app->match('/', function() use($app) { 
   
-//  $facebook = $app['facebook'];
-//  $values = $app['config']->getSiteWideValues();
-//  $app_data = $facebook->getAppData();
-//  
-//  
-//  if($app['request']->get('signed_request'))
-//  {
-//    if($facebook->isPageLiked())
-//    {
-//      return $app->redirect('/enter');
-//    }
-//    else
-//    {
-//      return $app->redirect('/unliked');
-//    }
-//  }
-//  else
+
+  
+  
+  if($app['request']->get('signed_request'))
+  {
+    if($facebook->isPageLiked())
+    {
+      return $app->redirect('/enter');
+    }
+    else
+    {
+      return $app->redirect('/unliked');
+    }
+  }
+  else
   {
    /* if we aren't inside facebook - return the like og tags and redirect js */
-      
-   var_dump($app['test']);   
+   var_dump($app['view_config_vars']);   
    $values = array();
    $values['facebook_app_id'] ='';
    return $app['twig']->render('test.html.twig', $values ); 

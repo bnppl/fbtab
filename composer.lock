@@ -1,5 +1,5 @@
 {
-    "hash": "050a9f575d34b631e2c7168575099dd7",
+    "hash": "a70b9741150f7b20f9712f9f446aa182",
     "packages": [
         {
             "package": "doctrine/common",
@@ -24,6 +24,12 @@
             "version": "dev-master",
             "source-reference": "1270f0debaab3b93d683a9817c7adbc7e9e5cdc0",
             "commit-date": "1344374333"
+        },
+        {
+            "package": "gabordemooij/redbean",
+            "version": "dev-master",
+            "source-reference": "d6f9a6f004e49a3ba44e3d1edd10d9b11d7c24bf",
+            "commit-date": "1346624212"
         },
         {
             "package": "igorw/config-service-provider",
@@ -166,8 +172,8 @@
         {
             "package": "symfony/http-foundation",
             "version": "dev-master",
-            "source-reference": "c61c023d2e9e9ad2edcc9227bd0ec5f79d616e18",
-            "commit-date": "1346312580"
+            "source-reference": "c72ddd57edfa6f98b10902fbb545fcab0e78baf8",
+            "commit-date": "1346761482"
         },
         {
             "package": "symfony/http-kernel",
@@ -332,6 +338,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "facebook/php-sdk": 20
+        "facebook/php-sdk": 20,
+        "gabordemooij/redbean": 20
     }
 }

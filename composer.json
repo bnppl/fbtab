@@ -1,4 +1,6 @@
 {
+    "name": "traffic/fbtab",
+    "version": "1.0.0-alpha",
     "minimum-stability": "dev",
     "require": {
         "silex/silex": "1.0.*",
@@ -23,6 +25,12 @@
         "doctrine/dbal": "2.1.*",
         "swiftmailer/swiftmailer": "4.1.*",
         "facebook/php-sdk": "dev-master",
+        "gabordemooij/redbean": "dev-master",
         "igorw/config-service-provider": "1.0.*"
+    },
+    "autoload": {
+        "psr-0": { "Traffic\\Silex": "src" }
     }
 }
+
+
