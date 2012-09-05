@@ -14,8 +14,7 @@ class AdminServiceProvider implements ServiceProviderInterface
       
         $app['admin'] = $app->share(function () use ($app) {
             
-            
-           
+          
             
             $admin = new \Traffic\Silex\FBTab\Admin();
             

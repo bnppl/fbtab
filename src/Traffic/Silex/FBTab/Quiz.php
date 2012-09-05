@@ -140,6 +140,7 @@ class Quiz {
         $query_parts[] = $key.' = :'.$key;
       }
       
+      
       $sql = 'INSERT INTO entry SET '.implode(",\n", $query_parts);
               
       ;

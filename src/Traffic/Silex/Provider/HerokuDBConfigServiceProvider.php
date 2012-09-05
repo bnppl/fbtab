@@ -24,6 +24,7 @@ class HerokuDBConfigServiceProvider implements ServiceProviderInterface
             {
                 $db_url = getenv($app['heroku.db_env_variable']);
                 
+                
             }
             else{
                 $db_url = getenv('DATABASE_URL');

@@ -17,6 +17,7 @@ class QuizServiceProvider implements ServiceProviderInterface{
         });
     }
     
+    
     public function boot(Application $app)
     {
         

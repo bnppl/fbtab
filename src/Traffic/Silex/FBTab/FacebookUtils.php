@@ -17,6 +17,7 @@ class FacebookUtils
 
     public function isPageLiked()
     {
+        
         $signedRequest = $this->getSignedRequest();
         if(!$signedRequest)
         {
