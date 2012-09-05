@@ -39,9 +39,9 @@ class HerokuDBConfigServiceProvider implements ServiceProviderInterface
             list($username, $password) = explode(':', $credentials);
             list($server, $db_name) = explode('/',$location);
 
-            $settings['db_dsn'] = $dbtype.":host=".$server.";dbname=".$db_name;
-            $settings['db_username'] = $username;
-            $settings['db_password'] = $password;
+            $settings['dsn'] = $dbtype.":host=".$server.";dbname=".$db_name;
+            $settings['username'] = $username;
+            $settings['password'] = $password;
             
             return $settings;
         });
