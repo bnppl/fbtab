@@ -25,6 +25,7 @@ class RedBeanServiceProvider implements ServiceProviderInterface
                 }
                 include_once $redbean_path;
             }
+            
 
             $database = \R::setup();
             return $database;
