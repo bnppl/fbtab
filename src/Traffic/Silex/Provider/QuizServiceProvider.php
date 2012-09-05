@@ -5,13 +5,15 @@ use Silex\Application;
 use Silex\ServiceProviderInterface;
 
 
-class QuizServiceProvider{
+class QuizServiceProvider implements ServiceProviderInterface{
     
     public function register(Application $app)
     {
         $app['quiz'] = $app->share(function() use ($app) {
             
-            return $database;
+            $quiz = new \Traffic\Silex\FBTab\Quiz($app['pdo'], $app['form.factory']);
+            
+            return ;;
         });
     }
     

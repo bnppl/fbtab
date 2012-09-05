@@ -49,6 +49,20 @@ class Quiz {
       }
     }
     
+    public function getForm(){
+        $userFields = $this->getUserFields();
+    
+        $form = $app['form.factory']
+            ->createBuilder('form', $defaults, array('csrf_protection' => false,));
+
+
+        foreach($userFields as $field) 
+        {
+        $form->add($field['fieldname'], $field['type'], $field['attributes']);
+        }
+        $form = $form->getForm() ;
+    }
+    
     public function getUserFields(){
       return $this->userFields;
     }

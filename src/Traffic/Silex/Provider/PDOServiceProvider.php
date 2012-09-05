@@ -11,15 +11,16 @@ class PDOServiceProvider implements ServiceProviderInterface
   {
 
      $app['pdo'] = $app->share(function () use ($app) {
+        
+        $db_config = $app['db_config'];
 
-        $dsn = $app['pdo.dsn'];
-        $username = $app['pdo.username'];
-        $password = $app['pdo.password'];
-        $pdo = new \PDO($dsn, $username, $password);
+        $pdo = new \PDO($db_config['dsn'], $db_config['username'], $db_config['password']);
 
         return $pdo;
     });
   }
   
-  public function boot(Application $app){}
+  public function boot(Application $app){
+      
+  }
 }
