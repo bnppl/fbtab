@@ -11,9 +11,9 @@ class QuizServiceProvider implements ServiceProviderInterface{
     {
         $app['quiz'] = $app->share(function() use ($app) {
             
-            $quiz = new \Traffic\Silex\FBTab\Quiz($app['pdo'], $app['form.factory']);
+            $quiz = new \Traffic\Silex\FBTab\Quiz($app['pdo'], $app['form.factory'], $app['user_fields']);
             
-            return ;;
+            return $quiz;
         });
     }
     

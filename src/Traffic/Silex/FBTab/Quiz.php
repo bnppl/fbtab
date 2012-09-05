@@ -24,7 +24,9 @@ class Quiz {
     protected $form_factory;
     
     
-    public function __construct($pdo, FormFactory $form_factory, $user_fields = null) {
+    public function __construct($pdo, FormFactory $form_factory, $user_fields = null) 
+    {
+        
       $this->pdo = $pdo;
       $this->form_factory = $form_factory;
       if($user_fields)
@@ -36,14 +38,39 @@ class Quiz {
       
     }
     
+    public function getEntryForm($defaults = array())
+    {
+        $form = $this->form_factory
+          ->createBuilder('form', $defaults, array('csrf_protection' => false,'required' => true));
+
+          
+        foreach($this->userFields as $fieldname => $field) 
+        {
+        $form->add($fieldname, $field['form_type'], array('attr' =>$field['attr']));
+        }
+        
+        $question = $this->getQuestionWithAnswers();
+
+        $form->add('answer_id', 'choice', array(
+            'choices' => $question['answers'],
+            'expanded' =>true,
+            'label' => ' ',
+            'required' => true,
+        ));
+
+        $form = $form->getForm() ;
+        return $form;
+    }
+    
     
     
     public function checkDBSetup()
     {
       $sql = 'SHOW TABLES';
       $stmt = $this->pdo->query($sql);
-      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-      if(count($result) == 0){
+      $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+      if(count($result) == 0)
+      {
         $sql = $this->getTableDefinitionSQL();
         $this->pdo->query($sql);
       }
@@ -51,6 +78,11 @@ class Quiz {
     
     public function getUserFields(){
       return $this->userFields;
+    }
+    
+    public function setUserFields($user_fields)
+    {
+        $this->userFields = $user_fields;
     }
     
     public function getQuestionWithAnswers()
@@ -64,7 +96,7 @@ class Quiz {
       ;
       $stmt = $this->pdo->query($sql);
       
-      $question = $stmt->fetch(PDO::FETCH_ASSOC);
+      $question = $stmt->fetch(\PDO::FETCH_ASSOC);
       
       $sql = 'SELECT * FROM quiz_question_answer a WHERE a.quiz_question_id = :question_id';
       $stmt = $this->pdo->prepare($sql);
@@ -72,12 +104,9 @@ class Quiz {
       $stmt->execute();
 
 
-      while($answer = $stmt->fetch())
+      while($answer = $stmt->fetch(\PDO::FETCH_ASSOC))
       {
-        $question['answers'][] = array(
-            'id' => $answer['id'],
-            'answer' => $answer['answer'],
-            );
+        $question['answers'][$answer['id']] = $answer['answer'];
       }
       
       
@@ -115,7 +144,7 @@ class Quiz {
               
       ;
       
-      
+
       $stmt = $this->pdo->prepare($sql);
       
       $result = $stmt->execute($form_values);      
@@ -127,17 +156,19 @@ class Quiz {
     {
       
       $fields = array();
-      foreach($this->userFields as $field){
+      foreach($this->userFields  as $fieldname => $field){
         if(isset($field['csv']) && $field['csv']){
-          $fields[] = $field['fieldname'];
+          $fields[] = $fieldname;
           
         }
       }
       
-      $sql = 'SELECT '.implode(',',$fields).' FROM entry e ';
+       $sql = 'SELECT '.implode(',',$fields).', q.question_title, a.answer FROM entry e 
+          INNER JOIN quiz_question_answer a on e.answer_id = a.id 
+          INNER JOIN quiz_question q on a.quiz_question_id = q.id';
       
       $stmt = $this->pdo->query($sql);
-      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+      return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
     
     protected function getTableDefinitionSQL(){

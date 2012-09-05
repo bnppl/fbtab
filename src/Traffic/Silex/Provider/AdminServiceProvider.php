@@ -1,5 +1,5 @@
 <?php
-namespace Traffic;
+namespace Traffic\Silex\Provider;
 
 
 use Silex\Application;
@@ -14,10 +14,10 @@ class AdminServiceProvider implements ServiceProviderInterface
       
         $app['admin'] = $app->share(function () use ($app) {
             
-            require_once $app['admin.class_path'];
+            
            
             
-            $admin = new Admin();
+            $admin = new \Traffic\Silex\FBTab\Admin();
             
             return $admin;
         });
