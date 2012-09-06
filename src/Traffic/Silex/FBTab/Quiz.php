@@ -177,6 +177,15 @@ class Quiz {
     public function getAllEntrants()
     {
       
+      $sql = $this->getAllEntrantsQuery();
+      
+      $stmt = $this->pdo->query($sql);
+      return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    
+    public function getAllEntrantsQuery()
+    {
+      
       $fields = array();
       foreach($this->userFields  as $fieldname => $field){
         if(isset($field['csv']) && $field['csv']){
@@ -189,8 +198,7 @@ class Quiz {
           INNER JOIN quiz_question_answer a on e.answer_id = a.id 
           INNER JOIN quiz_question q on a.quiz_question_id = q.id';
       
-      $stmt = $this->pdo->query($sql);
-      return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+      return $sql;
     }
     
     protected function getTableDefinitionSQL(){
