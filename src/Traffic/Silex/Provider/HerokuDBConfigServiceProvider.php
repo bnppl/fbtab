@@ -31,6 +31,10 @@ class HerokuDBConfigServiceProvider implements ServiceProviderInterface
                 
             }
             
+            if(!$db_url){
+                return false;
+            }
+            
             if(strpos($db_url, '?'))
             {
                 list($db_url, $params) = explode('?', $db_url);
