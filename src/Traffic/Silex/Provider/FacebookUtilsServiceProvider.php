@@ -13,7 +13,7 @@ class FacebookUtilsServiceProvider implements ServiceProviderInterface
         $app['facebook_utils'] = $app->share(function () use ($app) {
         
             
-        $facebook_utils = new Traffic\Silex\FBTab\FacebookUtils($app['request']->get('signed_request'));
+        $facebook_utils = new \Traffic\Silex\FBTab\FacebookUtils($app['request']->get('signed_request'));
 
         return $facebook_utils;
     });
