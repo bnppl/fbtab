@@ -71,7 +71,7 @@ class Quiz {
                 INNER JOIN quiz_question q on a.quiz_question_id = q.id
                 GROUP BY question_title';
         $stmt = $this->pdo->query($sql);
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         $filter = array();
         foreach($result as $row){
             $filter[] = array('value' =>$row['question_title'], 'name' => $row['question_title']);
