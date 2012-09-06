@@ -7,8 +7,6 @@
         "symfony/form": "2.1.*",
         "symfony/yaml": "2.1.*",
         "symfony/validator": "2.1.*",
-        "symfony/monolog-bridge": "2.1.*",
-        "doctrine/dbal": "2.1.*",
         "igorw/config-service-provider": "1.0.*"
     },
     "autoload": {
