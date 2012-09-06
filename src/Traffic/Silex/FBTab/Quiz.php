@@ -62,6 +62,22 @@ class Quiz {
         return $form;
     }
     
+    public function getFilterOptions()
+    {
+        $filters = array();
+        $sql = 'SELECT question_title FROM entry e GROUP BY competition_name';
+        $stmt = $this->pdo->query($sql);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $filter = array();
+        foreach($result as $row){
+            $filter[] = array('value' =>$row['question_title'], 'name' => $row['question_title']);
+        }
+        
+        $filters['question_title'] = array('options' => $filter, 'label' => 'Competition Name') ;
+        return $filters;
+        
+    }
+    
     
     
     public function checkDBSetup()
