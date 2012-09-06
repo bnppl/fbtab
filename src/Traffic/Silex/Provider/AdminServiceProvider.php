@@ -16,7 +16,7 @@ class AdminServiceProvider implements ServiceProviderInterface
             
           
             
-            $admin = new \Traffic\Silex\FBTab\Admin();
+            $admin = new \Traffic\Silex\FBTab\Admin($app['pdo']);
             
             return $admin;
         });
