@@ -65,7 +65,11 @@ class Quiz {
     public function getFilterOptions()
     {
         $filters = array();
-        $sql = 'SELECT question_title FROM entry e GROUP BY competition_name';
+        $sql = 'SELECT question_title FROM 
+                entry e 
+                INNER JOIN quiz_question_answer a ON e.answer_id = a.id
+                INNER JOIN quiz_question q on a.quiz_question_id = q.id
+                GROUP BY question_title';
         $stmt = $this->pdo->query($sql);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $filter = array();
