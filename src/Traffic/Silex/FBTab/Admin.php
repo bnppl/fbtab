@@ -1,5 +1,5 @@
 <?php
-namespace Traffic;
+namespace Traffic\Silex\FBTab;
 
 class Admin
 {
