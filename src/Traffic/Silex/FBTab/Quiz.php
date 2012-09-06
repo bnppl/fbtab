@@ -73,6 +73,7 @@ class Quiz {
             $filter[] = array('value' =>$row['question_title'], 'name' => $row['question_title']);
         }
         
+        
         $filters['question_title'] = array('options' => $filter, 'label' => 'Competition Name') ;
         return $filters;
         
