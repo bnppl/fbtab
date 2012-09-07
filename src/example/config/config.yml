@@ -9,5 +9,5 @@ facebook:
   redirect_to_tab : true
   
 view_config_vars:
-    google_analytics_code : UA-713676-5
+    google_analytics_code : XXX
 
