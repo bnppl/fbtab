@@ -49,14 +49,19 @@ class Quiz {
             $form->add($fieldname, $field['form_type'], array('attr' =>$field['attr']));
         }
         
+        
         $question = $this->getQuestionWithAnswers();
+        
+        if($question){
+            
+            $form->add('answer_id', 'choice', array(
+                'choices' => $question['answers'],
+                'expanded' =>true,
+                'label' => ' ',
+                'required' => true,
+            ));
+        }
 
-        $form->add('answer_id', 'choice', array(
-            'choices' => $question['answers'],
-            'expanded' =>true,
-            'label' => ' ',
-            'required' => true,
-        ));
 
         $form = $form->getForm() ;
         return $form;
@@ -164,17 +169,20 @@ class Quiz {
       
       $question = $stmt->fetch(\PDO::FETCH_ASSOC);
       
-      $sql = 'SELECT * FROM quiz_question_answer a WHERE a.quiz_question_id = :question_id';
-      $stmt = $this->pdo->prepare($sql);
-      $stmt->bindParam(':question_id', $question['id']);
-      $stmt->execute();
+      if($question){
+          
+        $sql = 'SELECT * FROM quiz_question_answer a WHERE a.quiz_question_id = :question_id';
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindParam(':question_id', $question['id']);
+        $stmt->execute();
 
 
-      while($answer = $stmt->fetch(\PDO::FETCH_ASSOC))
-      {
-        $question['answers'][$answer['id']] = $answer['answer'];
+        while($answer = $stmt->fetch(\PDO::FETCH_ASSOC))
+        {
+            $question['answers'][$answer['id']] = $answer['answer'];
+        }
+
       }
-      
       
       return $question;
     }
@@ -246,10 +254,14 @@ class Quiz {
           
         }
       }
-      
-       $sql = 'SELECT '.implode(',',$fields).', q.question_title, a.answer FROM entry e 
-          INNER JOIN quiz_question_answer a on e.answer_id = a.id 
-          INNER JOIN quiz_question q on a.quiz_question_id = q.id';
+      if($this->getQuestionWithAnswers()){
+        $sql = 'SELECT '.implode(',',$fields).', q.question_title, a.answer FROM entry e 
+            INNER JOIN quiz_question_answer a on e.answer_id = a.id 
+            INNER JOIN quiz_question q on a.quiz_question_id = q.id';
+      }
+      else{
+          $sql = 'SELECT '.implode(',',$fields).' FROM entry e ';
+      }
       
       return $sql;
     }
