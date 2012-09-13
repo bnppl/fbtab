@@ -46,7 +46,7 @@ class Quiz {
           
         foreach($this->userFields as $fieldname => $field) 
         {
-        $form->add($fieldname, $field['form_type'], array('attr' =>$field['attr']));
+            $form->add($fieldname, $field['form_type'], array('attr' =>$field['attr']));
         }
         
         $question = $this->getQuestionWithAnswers();
@@ -60,6 +60,51 @@ class Quiz {
 
         $form = $form->getForm() ;
         return $form;
+    }
+    
+    public function getAddQuestionForm($num_answers = 3, $defaults = array())
+    {
+        $answers_form = $this->form_factory
+          ->createBuilder('form', array(), array('csrf_protection' => false,'required' => true)); 
+        $answers_form->add('answer', 'text')
+                     ->add('is_correct', 'checkbox');
+        if(empty($defaults))
+        {
+            $defaults = array(
+                'question_text' => '',
+                'display_until' => new \DateTime(),
+                'answers' => array(),
+            );
+            for($i = 0; $i < $num_answers; $i++)
+            {
+                $defaults['answers'][$i] = array(
+                    'answer'=>'test',
+                    'is_correct'=>false,
+                );
+            }
+        }
+        
+        
+        
+        
+        $form = $this->form_factory
+          ->createBuilder('form', $defaults, array('csrf_protection' => false,'required' => true));
+        
+//        var_dump($answers_form->getType());
+//        die;
+        
+        $form->add('answers', 'collection', 
+                array(
+                    'type'=>$answers_form->getType('answers'),
+                    'allow_add' => true,
+                    'by_reference' => false,
+                )
+                );
+        
+        $form->add('question_text');
+        $form->add('display_until', 'time');
+        
+        return $form->getForm();
     }
     
     public function getFilterOptions()
@@ -134,6 +179,13 @@ class Quiz {
       return $question;
     }
     
+    public function getAllQuestions()
+    {
+        $sql = 'SELECT * FROM quiz_question';
+        $stmt = $this->pdo->query($sql);
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    
     public function isAnswerCorrect($answer_id)
     {
       
@@ -143,13 +195,14 @@ class Quiz {
       $answer_stmt->execute();
       $answer_row = $answer_stmt->fetch();
       
-      if($answer_row['is_correct'] == 1){
+      if($answer_row['is_correct'] == 1)
+      {
         return true;
       }
-      else{
+      else
+      {
         return false;
       }
-      
     }
     
     
@@ -218,17 +271,28 @@ class Quiz {
         `is_correct` tinyint(4) DEFAULT "0",
         `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (`id`)
-      ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;';
+      ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=latin1; ';
       
       $sql .= 'CREATE TABLE `entry` (
-          `id` int(11) NOT NULL AUTO_INCREMENT,
-          `name` varchar(200) DEFAULT NULL,
-          `email` varchar(200) DEFAULT NULL,
-          `agree_terms` int(11) DEFAULT NULL,
-          `answer_id` int(11) DEFAULT NULL,
+          `id` int(11) NOT NULL AUTO_INCREMENT,';
+         
+      
+      
+      
+      foreach($this->userFields as $fieldname => $field)
+      {
+          
+         
+          $sql .= ' `'.$fieldname.'` '.$field['data_type'].' DEFAULT NULL, ';
+
+      }
+      
+       $sql.='`answer_id` int(11) DEFAULT NULL,
           `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
           PRIMARY KEY (`id`)
-        ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;';
+        ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;';
+      
+
       return $sql;
     }
     
