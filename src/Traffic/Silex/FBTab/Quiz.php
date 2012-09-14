@@ -280,6 +280,7 @@ class Quiz {
         `id` int(11) NOT NULL AUTO_INCREMENT,
         `quiz_question_id` int(11) DEFAULT NULL,
         `answer` varchar(255) DEFAULT NULL,
+        `image` varchar(255) DEFAULT NULL,
         `is_correct` tinyint(4) DEFAULT "0",
         `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (`id`)
