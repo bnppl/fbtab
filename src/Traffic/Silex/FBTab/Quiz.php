@@ -179,7 +179,13 @@ class Quiz {
 
         while($answer = $stmt->fetch(\PDO::FETCH_ASSOC))
         {
-            $question['answers'][$answer['id']] = $answer['answer'];
+            if(isset($answer['image']) && $answer['image'] != ''){
+                $question['answers'][$answer['id']] = $answer['image'];
+            }
+            else{
+                
+                $question['answers'][$answer['id']] = $answer['answer'];
+            }
         }
 
       }
