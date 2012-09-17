@@ -8,6 +8,7 @@ class FacebookUtils
     public function __construct($signed_request = null) 
     {
         $this->signed_request = $signed_request;
+
     }
     
     public function getSignedRequest(){
