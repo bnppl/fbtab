@@ -27,7 +27,7 @@ class FacebookUtils
                 $payload = null;
                 list($encoded_sig, $payload) = explode('.', $data, 2);
                 $sig = base64_decode(strtr($encoded_sig, '-_', '+/'));
-                $data = json_decode(base64_decode(strtr($payload, '-_', '+/'), true));
+                $data = json_decode(base64_decode(strtr($payload, '-_', '+/')));
 
                 $is_fan = isset($data->page->liked)? $data->page->liked : '';
                 return $is_fan;
