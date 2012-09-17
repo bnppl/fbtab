@@ -187,7 +187,7 @@ class Quiz {
                 $question['answers'][$answer['id']] = $answer['answer'];
             }
         }
-
+        
       }
       
       return $question;
